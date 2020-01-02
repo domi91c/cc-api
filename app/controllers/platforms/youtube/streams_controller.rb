@@ -4,10 +4,11 @@ module Platforms
       before_action :authenticate_user!
 
       def index
-        livestreams = ::Youtube::Livestreams.new(access_token, current_user.refresh_token)
-        response = livestreams.scheduled
-        render json: response
+        streams = ::Youtube::Streams.new(access_token, current_user)
+        response = streams.scheduled(params[:force_refresh])
+        render json: response, serializer: ::Youtube::ScheduledStreamsSerializer
       end
+
     end
   end
 end

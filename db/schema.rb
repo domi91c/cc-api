@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_21_002229) do
+ActiveRecord::Schema.define(version: 2020_01_01_195214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_responses", force: :cascade do |t|
+    t.json "response"
+    t.string "api"
+    t.string "kind"
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_type", "owner_id"], name: "index_api_responses_on_owner_type_and_owner_id"
+  end
 
   create_table "chat_conversations", force: :cascade do |t|
     t.string "owner_type", null: false
@@ -49,6 +60,21 @@ ActiveRecord::Schema.define(version: 2019_12_21_002229) do
     t.string "content_identifier"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.string "content_provider"
+    t.datetime "scheduled_time"
+  end
+
+  create_table "thumbnails", force: :cascade do |t|
+    t.string "url"
+    t.integer "height"
+    t.integer "width"
+    t.string "size"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.index ["owner_type", "owner_id"], name: "index_thumbnails_on_owner_type_and_owner_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,7 +90,7 @@ ActiveRecord::Schema.define(version: 2019_12_21_002229) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
-    t.string "nickname"
+    t.string "username"
     t.string "image"
     t.string "email"
     t.json "tokens"
