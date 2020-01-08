@@ -5,7 +5,11 @@ module Platforms
 
       def index
         streams = ::Youtube::Streams.new(access_token, current_user)
-        response = streams.scheduled(params[:force_refresh])
+        response = streams.scheduled(refresh: params[:force_refresh])
+
+        used_ids = current_user.streams.pluck(:content_identifier)
+        
+
         render json: response, serializer: ::Youtube::ScheduledStreamsSerializer
       end
 

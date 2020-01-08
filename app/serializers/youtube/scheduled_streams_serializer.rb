@@ -1,8 +1,6 @@
 class Youtube::ScheduledStreamsSerializer < ApplicationSerializer
   attributes :id, :items
 
-  has_many :items, each_serializer: Youtube::ScheduledStreamSerializer
-
   def items
     object.response['items'].map do |item|
       {

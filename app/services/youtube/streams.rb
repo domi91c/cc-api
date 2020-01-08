@@ -23,7 +23,7 @@ module Youtube
       @service.authorization = auth.to_authorization
     end
 
-    def scheduled(refresh = false)
+    def scheduled(refresh: false)
       if !refresh && (api_response = @user.api_responses.where(api: :youtube, kind: :streams_scheduled).last)
         return api_response
       else

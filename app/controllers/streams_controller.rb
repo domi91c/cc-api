@@ -1,26 +1,17 @@
 class StreamsController < ApplicationController
+  before_action :set_stream, only: [:show]
 
   def index
     render json: Stream.all
   end
 
   def show
-    @stream = Youtube::Streams.new(access_token, current_user.refresh_token)
-    response = @stream.scheduled
-    render json: response.as_json
+    render json: @stream, include: ['casts', 'requests', 'requests.guest']
   end
 
-  def create
-    stream = Streams::CreateStream.call(stream_params)
-    if stream.save
-      render json: stream, status: :created
-    else
-      binding.pry
-      render json: stream.errors, status: :unprocessable_entity
-    end
-  end
+  private
 
-  def stream_params
-    params.require(:stream).permit(:content_identifier).merge(host_id: current_user.id)
+  def set_stream
+    @stream = Stream.find_by(content_identifier: params[:id])
   end
 end

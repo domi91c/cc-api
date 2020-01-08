@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  default_url_options :host => "localhost:4000"
   mount_devise_token_auth_for 'User',
     at: 'api/auth',
     controllers: {
@@ -7,7 +8,9 @@ Rails.application.routes.draw do
     }
   mount ActionCable.server => '/cable'
   scope :api do
-    resources :streams
+    resources :streams do
+      resources :requests, module: :streams
+    end
     resources :calls
 
     resources :casts do
@@ -16,8 +19,11 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :host do
+      resources :streams
+    end
+
     resources :users do
-      resources :streams, module: :users
       collection do
         get :current
         get :test
