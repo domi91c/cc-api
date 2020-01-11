@@ -6,7 +6,7 @@ class StreamsController < ApplicationController
   end
 
   def show
-    render json: @stream, include: ['casts', 'requests', 'requests.guest']
+    render json: @stream, include: %w(casts requests requests.guest)
   end
 
   private
