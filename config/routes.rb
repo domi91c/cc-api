@@ -20,7 +20,9 @@ Rails.application.routes.draw do
     end
 
     namespace :host do
-      resources :streams
+      resources :streams do
+        resources :requests, module: :streams
+      end
     end
 
     resources :users do

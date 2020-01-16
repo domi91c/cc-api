@@ -24,7 +24,7 @@ module Host
       when 'start'
         @stream.casts.create
       end
-      render json: @stream, include: [:casts]
+      render json: @stream, include: %w(casts requests requests.guest)
     end
 
     def set_stream

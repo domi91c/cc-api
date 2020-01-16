@@ -59,3 +59,5 @@ gem 'google-api-client'
 
 gem 'devise_token_auth'
 
+gem 'aasm'
+
