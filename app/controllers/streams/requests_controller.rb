@@ -3,7 +3,7 @@ module Streams
     before_action :set_stream
 
     def create
-      request = @stream.requests.new(guest: current_user)
+      request = Streams::CreateRequest.call(stream: @stream, guest: current_user)
       if request.save
         HostChannel.broadcast_to(@stream.host,
           { action: 'requests#create', body: RequestSerializer.new(request).as_json(include: 'guest') }
@@ -16,8 +16,8 @@ module Streams
 
     def destroy
       request = @stream.requests.find(params[:id])
-      request.update(status: :cancelled)
-      if request.destroy
+      request.status = :cancelled
+      if request.save
         HostChannel.broadcast_to(@stream.host,
           { action: 'requests#destroy', body: RequestSerializer.new(request).as_json(include: 'guest') }
         )

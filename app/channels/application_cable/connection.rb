@@ -10,6 +10,7 @@ module ApplicationCable
       access_token = request.query_parameters["access-token"]
 
       self.current_user = find_verified_user access_token, uid, client
+      logger.add_tags 'ActionCable', current_user.email
     end
 
     private
