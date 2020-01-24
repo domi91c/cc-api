@@ -1,5 +1,5 @@
 class StreamSerializer < ApplicationSerializer
-  attributes :id, :title, :content_identifier, :scheduled_time, :thumbnail, :request
+  attributes :id, :title, :host, :content_identifier, :scheduled_time, :thumbnail, :request
 
   def thumbnail
     json_member { |o| o.thumbnails.find_by_size('default') }

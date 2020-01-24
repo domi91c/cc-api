@@ -3,7 +3,7 @@ class CallsController < ApplicationController
 
   def create
     head :no_content
-    ActionCable.server.broadcast("call_channel", call_params)
+    CallChannel.broadcast_to(User.find_by(email: call_params[:to]), call_params)
   end
 
   private
