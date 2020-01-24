@@ -3,8 +3,10 @@ module Streams
     before_action :set_stream
 
     def create
-      request = Streams::CreateRequest.call(stream: @stream, guest: current_user)
-      if request.save
+      command = Guests::RequestInterview.call(stream: @stream, guest: current_user)
+
+      if command.success?
+        request = command.result
         HostChannel.broadcast_to(@stream.host,
           { action: 'requests#create', body: RequestSerializer.new(request).as_json(include: 'guest') }
         )

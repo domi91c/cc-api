@@ -1,5 +1,7 @@
-module Streams
-  class CreateStream < ApplicationService
+module Hosts
+  class ConnectStream
+    prepend Service
+
     def initialize(params)
       @params = params
     end

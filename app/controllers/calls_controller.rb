@@ -6,10 +6,6 @@ class CallsController < ApplicationController
     ActionCable.server.broadcast("call_channel", call_params)
   end
 
-  def index
-    render json: current_user
-  end
-
   private
 
   def call_params

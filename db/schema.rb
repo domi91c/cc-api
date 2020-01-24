@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_034401) do
+ActiveRecord::Schema.define(version: 2020_01_22_140748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(version: 2020_01_17_034401) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["owner_type", "owner_id"], name: "index_api_responses_on_owner_type_and_owner_id"
+  end
+
+  create_table "calls", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "request_id", null: false
+    t.index ["request_id"], name: "index_calls_on_request_id"
   end
 
   create_table "casts", force: :cascade do |t|
@@ -144,6 +153,7 @@ ActiveRecord::Schema.define(version: 2020_01_17_034401) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "calls", "requests"
   add_foreign_key "casts", "streams"
   add_foreign_key "requests", "streams"
 end

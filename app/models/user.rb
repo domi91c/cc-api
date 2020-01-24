@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   has_many :api_responses, as: :owner
   has_many :streams, class_name: 'Stream', foreign_key: 'host_id'
-  has_many :requests,class_name: 'Request', foreign_key: 'guest_id'
+  has_many :requests, class_name: 'Request', foreign_key: 'guest_id'
   has_one_attached :avatar
 
   def avatar_url

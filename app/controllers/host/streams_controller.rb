@@ -11,8 +11,10 @@ module Host
     end
 
     def create
-      stream = Streams::CreateStream.call(stream_params)
-      if stream.save
+      command = Hosts::ConnectStream.call(stream_params)
+      stream = command.result
+
+      if command.success?
         render json: stream, status: :created
       else
         render json: stream.errors, status: :unprocessable_entity

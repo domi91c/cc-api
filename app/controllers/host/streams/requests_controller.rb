@@ -6,11 +6,14 @@ module Host
       def update
         case params[:trigger]
         when 'accept'
-          request = @stream.requests.find(params[:id])
-          request.update(status: 'live')
-          GuestChannel.broadcast_to(request.guest,
-            { action: 'requests#update', body: ::StreamSerializer.new(@stream, request_id: request.id).as_json }
-          )
+          command = Hosts::StartInterview.call(params)
+          request = command.result
+
+          if command.success?
+            GuestChannel.broadcast_to(request.guest,
+              { action: 'requests#update', body: ::StreamSerializer.new(request.stream, request_id: request.id).as_json }
+            )
+          end
         when 'reject'
           request = @stream.requests.find(params[:id])
           request.update(status: 'rejected')

@@ -2,6 +2,8 @@ class Request < ApplicationRecord
   # include AASM
   belongs_to :guest, class_name: 'User', foreign_key: 'guest_id'
   belongs_to :stream
+  has_one :call
+
   before_create :setup_request
 
   STATUSES = {
