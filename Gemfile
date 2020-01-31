@@ -61,3 +61,5 @@ gem 'devise_token_auth'
 
 # gem 'aasm'
 
+
+gem 'colorize'

@@ -3,12 +3,32 @@ class CallsController < ApplicationController
 
   def create
     head :no_content
-    CallChannel.broadcast_to(User.find_by(email: call_params[:to]), call_params)
+    CallChannel.broadcast_to(recipient,
+      CallSerializer.new(
+        call,
+        from: current_user.email,
+        type: call_params[:type],
+        sdp: call_params[:sdp]
+      )
+    )
   end
 
   private
 
-  def call_params
-    params.permit(:call, :type, :from, :to, :sdp)
-  end
+    def call
+      # params[:id] = Call.last.id unless params[:id]
+      Call.find(params[:id])
+    end
+
+    def recipient
+      if call.host == current_user
+        call.guest
+      else
+        call.host
+      end
+    end
+
+    def call_params
+      params.permit(:id, :type, :from, :sdp)
+    end
 end

@@ -74,6 +74,7 @@ GEM
     case_transform (0.2)
       activesupport
     coderay (1.1.2)
+    colorize (0.8.1)
     concurrent-ruby (1.1.5)
     crass (1.0.6)
     database_cleaner (1.7.0)
@@ -317,6 +318,7 @@ DEPENDENCIES
   active_model_serializers
   bootsnap (>= 1.4.2)
   byebug
+  colorize
   database_cleaner
   devise
   devise_token_auth

@@ -12,13 +12,16 @@ module Hosts
       snippet = resp.response['items'].find { |i| i['id'] == @params[:content_identifier] }['snippet']
       thumbnails = parse_thumbnails snippet
 
-      current_user.streams.new(
+      unless current_user.streams.create(
         content_identifier: @params[:content_identifier],
         content_provider: 'youtube',
         title: snippet['title'],
         scheduled_time: snippet['scheduled_start_time'],
         thumbnails_attributes: thumbnails
       )
+        errors.add(:base, "Failed to create stream.")
+      end
+
     end
 
     def parse_thumbnails(snippet)

@@ -1,5 +1,6 @@
 class GuestChannel < ApplicationCable::Channel
   def subscribed
+    # Rails.logger.debug("========GUEST CHANNEL========".green,"SUBSCRIBING FOR #{current_user.email}".red)
     stream_for current_user
 
     active_requests = current_user.requests.active

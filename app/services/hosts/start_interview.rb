@@ -9,7 +9,7 @@ module Hosts
 
     def call
       @request.update(status: 'live')
-      @request.create_call
+      @request.calls.create
       @request
     end
 

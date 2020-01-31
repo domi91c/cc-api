@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   def avatar_url
-    # return '' unless avatar.attached?
+    return '' unless avatar.attached?
     Rails.application.routes.url_helpers.url_for(avatar)
   end
 end
