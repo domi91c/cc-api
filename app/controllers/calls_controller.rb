@@ -16,7 +16,6 @@ class CallsController < ApplicationController
   private
 
     def call
-      # params[:id] = Call.last.id unless params[:id]
       Call.find(params[:id])
     end
 

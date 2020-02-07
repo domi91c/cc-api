@@ -63,3 +63,5 @@ gem 'devise_token_auth'
 
 
 gem 'colorize'
+
+gem 'rails-erd'

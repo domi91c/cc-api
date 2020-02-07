@@ -6,4 +6,8 @@ class Stream < ApplicationRecord
 
   accepts_nested_attributes_for :thumbnails
 
+  def thumbnail
+    thumbnails.find_by_size('default') || Nulls::Thumbnail.new
+  end
+
 end

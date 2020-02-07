@@ -1,10 +1,6 @@
 class StreamSerializer < ApplicationSerializer
   attributes :id, :title, :host, :content_identifier, :scheduled_time, :thumbnail, :request
 
-  def thumbnail
-    json_member { |o| o.thumbnails.find_by_size('default') }
-  end
-
   def request
     if scope && request = object.requests.find_by(guest: scope)
       RequestSerializer.new(request).as_json(include: 'guest')

@@ -9,4 +9,8 @@ class Call < ApplicationRecord
   def set_start_time
     self.start_time = DateTime.now
   end
+
+  def set_end_time
+    self.end_time = DateTime.now
+  end
 end

@@ -3,17 +3,27 @@ module Hosts
     prepend Service
 
     def initialize(params)
-      @stream = Stream.find_by(content_identifier: params[:stream_id])
-      @request = @stream.requests.find(params[:id])
+      @request_id = params[:id]
+      @stream_id = params[:stream_id]
     end
 
     def call
-      @request.update(status: 'live')
-      @request.calls.create
-      @request
+      # if @request.guest == current_user
+      #   errors.add(:base, "Guest cannot be host of stream.")
+      # end
+      request.update(status: 'live')
+      request.calls.create
+      request
     end
 
     private
 
+      def stream
+        Stream.find_by(content_identifier: @stream_id)
+      end
+
+      def request
+        @request = stream.requests.find(@request_id)
+      end
   end
 end

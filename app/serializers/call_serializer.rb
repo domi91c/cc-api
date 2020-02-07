@@ -1,7 +1,7 @@
 class CallSerializer < ApplicationSerializer
   attributes :id, :from, :type, :sdp
   # belongs_to :request
-  has_one :stream
+  has_one :stream, serializer: StreamSerializer
   has_one :host, serializer: UserSerializer
   has_one :guest, serializer: UserSerializer
 
