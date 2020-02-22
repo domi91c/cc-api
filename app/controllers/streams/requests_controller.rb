@@ -16,6 +16,13 @@ module Streams
       end
     end
 
+    def update
+      request = @stream.requests.find(params[:id])
+      request.update(status: 'live')
+
+      render json: @stream
+    end
+
     def destroy
       request = @stream.requests.find(params[:id])
       request.status = :cancelled

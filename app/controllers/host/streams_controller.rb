@@ -1,13 +1,15 @@
 module Host
   class StreamsController < ApplicationController
-    before_action :set_stream, only: [:show, :update]
+    before_action :set_stream, only: %i[show update]
 
     def index
       render json: current_user.streams
     end
 
     def show
-      render json: @stream, include: %w(casts requests requests.guest)
+      render json: @stream,
+             serializer: Host::StreamSerializer,
+             include: %w[casts requests requests.guest]
     end
 
     def create
@@ -26,7 +28,7 @@ module Host
       when 'start'
         @stream.casts.create
       end
-      render json: @stream, include: %w(casts requests requests.guest)
+      render json: @stream, include: %w[casts requests requests.guest]
     end
 
     def set_stream
@@ -34,7 +36,9 @@ module Host
     end
 
     def stream_params
-      params.require(:stream).permit(:content_identifier).merge(host_id: current_user.id)
+      params.require(:stream).permit(:content_identifier).merge(
+        host_id: current_user.id
+      )
     end
   end
 end

@@ -6,10 +6,10 @@ module Host
       def update
         case params[:trigger]
         when 'accept'
-          command = Hosts::StartInterview.call(params)
-          request = command.result
+          start_interview = Hosts::StartInterview.call(params.merge(current_user: current_user))
+          request = start_interview.result
 
-          if command.success?
+          if start_interview.success?
             GuestChannel.broadcast_to(request.guest,
               { action: 'requests#update', body: ::StreamSerializer.new(request.stream, request_id: request.id).as_json }
             )
