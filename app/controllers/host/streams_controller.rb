@@ -1,5 +1,6 @@
 module Host
   class StreamsController < ApplicationController
+    before_action :authenticate_user!
     before_action :set_stream, only: %i[show update]
 
     def index
