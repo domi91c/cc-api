@@ -2,19 +2,21 @@ class CallsController < ApplicationController
   before_action :authenticate_user!
 
   def update
-    CallChannel.broadcast_to(
-      recipient,
-      CallSerializer.new(
-        call,
-        from: current_user.email,
-        to: call_params[:to],
-        type: call_params[:type],
-        sdp: call_params[:sdp],
-        candidate: call_params[:candidate],
-        request_id: call.request_id,
-        scope: current_user
+    if call.request.status == 'live'
+      CallChannel.broadcast_to(
+        recipient,
+        CallSerializer.new(
+          call,
+          from: current_user.email,
+          to: call_params[:to],
+          type: call_params[:type],
+          sdp: call_params[:sdp],
+          candidate: call_params[:candidate],
+          request_id: call.request_id,
+          scope: current_user
+        )
       )
-    )
+    end
     head :no_content
   end
 

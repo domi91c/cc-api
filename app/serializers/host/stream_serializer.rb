@@ -2,7 +2,6 @@ module Host
   class StreamSerializer < ApplicationSerializer
     attributes :id, :title, :content_identifier, :scheduled_time, :thumbnail
 
-    has_many :casts
     has_many :requests do
       object.requests.active
     end

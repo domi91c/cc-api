@@ -17,7 +17,7 @@ module Guests
       else
         request = @stream.requests.new(guest: @guest)
         unless request.save
-          errors.add(:save_request, "Failed to add request.")
+          errors.add(:base, "Failed to add request.")
         end
       end
       request

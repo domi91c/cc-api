@@ -21,6 +21,7 @@ class Request < ApplicationRecord
   INACTIVE_STATUSES = %w(declined cancelled finished)
 
   # TODO: active shouldn't have interrupted requests.
+  scope :live, -> { where(status: 'live') }
   scope :active, -> { where(status: ACTIVE_STATUSES) }
   scope :interrupted, -> { where(status: ACTIVE_STATUSES, interrupted: true) }
 

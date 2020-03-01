@@ -3,12 +3,17 @@ module Streams
     before_action :set_stream
 
     def create
-      command = Guests::RequestInterview.call(stream: @stream, guest: current_user)
+      command =
+        Guests::RequestInterview.call(stream: @stream, guest: current_user)
 
       if command.success?
         request = command.result
-        HostChannel.broadcast_to(@stream.host,
-          { action: 'requests#create', body: RequestSerializer.new(request).as_json(include: 'guest') }
+        HostChannel.broadcast_to(
+          @stream.host,
+          {
+            action: 'requests#create',
+            body: RequestSerializer.new(request).as_json(include: 'guest')
+          }
         )
         render json: @stream
       else
@@ -19,6 +24,13 @@ module Streams
     def update
       request = @stream.requests.find(params[:id])
       request.update(status: 'live')
+      HostChannel.broadcast_to(
+        @stream.host,
+        {
+          action: 'requests#create',
+          body: RequestSerializer.new(request).as_json(include: 'guest')
+        }
+      )
 
       render json: @stream
     end
@@ -27,8 +39,12 @@ module Streams
       request = @stream.requests.find(params[:id])
       request.status = :cancelled
       if request.save
-        HostChannel.broadcast_to(@stream.host,
-          { action: 'requests#destroy', body: RequestSerializer.new(request).as_json(include: 'guest') }
+        HostChannel.broadcast_to(
+          @stream.host,
+          {
+            action: 'requests#destroy',
+            body: RequestSerializer.new(request).as_json(include: 'guest')
+          }
         )
         render json: @stream
       else
