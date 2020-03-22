@@ -15,8 +15,9 @@ module Host
             )
           end
         when 'finish'
-          request = @stream.requests.find(params[:id])
-          request.update(status: 'finished')
+          end_interview = Hosts::EndInterview.call(params)
+          request = end_interview.result
+
           GuestChannel.broadcast_to(request.guest,
             { action: 'requests#update', body: ::StreamSerializer.new(@stream, request_id: request.id).as_json }
           )

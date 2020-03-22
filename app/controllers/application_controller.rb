@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   include ActionController::Serialization
   include DeviseTokenAuth::Concerns::SetUserByToken
 
-	serialization_scope :current_user
+  serialization_scope :current_user
 
   respond_to :json
 

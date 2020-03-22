@@ -38,6 +38,10 @@ class Request < ApplicationRecord
   validates_uniqueness_of :guest_id, scope: [:stream_id]
   # validates :status, inclusion: { in: STATUSES.values }
 
+  def current_call
+    calls.where(end_time: nil).last
+  end
+
   def setup_request
     self.status = STATUSES[:waiting]
   end

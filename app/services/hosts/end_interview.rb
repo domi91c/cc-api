@@ -2,25 +2,23 @@ module Hosts
   class EndInterview
     prepend Service
 
+    attr_reader :params
+
     def initialize(params)
-      @stream_id = params[:id]
-      @request_id = params[:request_id]
+      @params = params
     end
 
     def call
-      @request.update(status: 'finished')
-      @request.calls.set_end_time
-      @request
+      request.update(status: 'finished')
+      request.current_call.set_end_time
+      request
     end
 
     private
 
-      def stream
-        Stream.find_by(content_identifier = @stream_id)
-      end
-
       def request
-        stream.requests.find(@request_id)
+        stream = Stream.find_by_content_identifier(params[:stream_id])
+        stream.requests.find(params[:id])
       end
   end
 end
