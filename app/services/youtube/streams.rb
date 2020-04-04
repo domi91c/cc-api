@@ -20,8 +20,6 @@ module Youtube
           }
         )
 
-
-      :redirect_uri => 'http://www.example.com/oauth2callback'
       yt = Google::Apis::YoutubeV3
       @service = yt::YouTubeService.new
       @service.authorization = auth.to_authorization
