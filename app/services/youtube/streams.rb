@@ -23,9 +23,6 @@ module Youtube
       yt = Google::Apis::YoutubeV3
       @service = yt::YouTubeService.new
       @service.authorization = auth.to_authorization
-      auth.update!(
-        redirect_uri: 'cuecast-api.herokuapp.com'
-      )
       @refresh = refresh
     end
 
