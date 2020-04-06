@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres:10-alpine'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+    env_file:
+      - '.env'
+      
+
+  redis:
+    image: 'redis:5-alpine'
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+    env_file:
+      - '.env'
+
+  core:
+    depends_on:
+      - 'db'
+      - 'redis'
+    build: .
+    ports:
+      - '8080:8080'
+    volumes:
+      - '.:/project'
+    env_file:
+      - '.env'
+
+volumes:
+  redis:
+  postgres:
