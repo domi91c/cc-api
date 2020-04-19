@@ -340,6 +340,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 6.0.0)
   rspec-rails
+  rubocop
   solargraph
   spring
   spring-watcher-listen (~> 2.0.0)

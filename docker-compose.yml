@@ -1,38 +1,33 @@
 version: '3'
-
 services:
   db:
-    image: 'postgres:10-alpine'
+    image: postgres
     volumes:
-      - 'postgres:/var/lib/postgresql/data'
-    ports:
-      - '5432:5432'
-    env_file:
-      - '.env'
-      
-
-  redis:
-    image: 'redis:5-alpine'
-    command: redis-server
-    ports:
-      - '6379:6379'
+      - ../../tmp/db:/var/lib/postgresql/data
+  web:
+    build: ../../
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      - 'redis:/data'
-    env_file:
-      - '.env'
-
-  core:
+      - ../../:/project
+    environment:
+      RAILS_ENV: "development"
+      REDIS_URL: "redis://redis:6379/12"
+    ports:
+      - "3000:3000"
     depends_on:
-      - 'db'
-      - 'redis'
-    build: .
-    ports:
-      - '8080:8080'
-    volumes:
-      - '.:/var/www'
-    env_file:
-      - '.env'
-
-volumes:
+      - db
   redis:
-  postgres:
+    image: redis
+    volumes:
+      - ../../tmp/db:/var/lib/redis/data
+  # sidekiq:
+  #   build: ../../
+  #   command: 'bundle exec sidekiq'
+  #   volumes:
+  #     - ../../:/project
+  #   environment:
+  #     RAILS_ENV: "development"
+  #     REDIS_URL: "redis://redis:6379/12"
+  #   depends_on:
+  #     - redis
+
