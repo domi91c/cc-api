@@ -1,4 +1,4 @@
-require '../rails_helper.rb'
+require 'rails_helper.rb'
 
 RSpec.describe Stream, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"

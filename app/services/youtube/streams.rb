@@ -15,7 +15,8 @@ module Youtube
               'access_token' => access_token,
               'refresh_token' => user.refresh_token,
               'client_id' => ENV['GOOGLE_CLIENT_ID'],
-              'client_secret' => ENV['GOOGLE_CLIENT_SECRET']
+              'client_secret' => ENV['GOOGLE_CLIENT_SECRET'],
+              'expires_in' => Time.now + 1_000_000
             }
           }
         )
