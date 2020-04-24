@@ -16,7 +16,9 @@ module Youtube
               'refresh_token' => user.refresh_token,
               'client_id' => ENV['GOOGLE_CLIENT_ID'],
               'client_secret' => ENV['GOOGLE_CLIENT_SECRET'],
-              'expires_in' => Time.now + 1_000_000
+              'expires_in' => Time.now + 1_000_000,
+              'grant_type' => 'authorization_code',
+              'redirect_url' => "https://cuecast.herokuapp.com/"
             }
           }
         )
