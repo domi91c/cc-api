@@ -9,21 +9,29 @@ module Youtube
     def initialize(access_token:, user:, refresh: false)
       @user = user
       auth =
-        Google::APIClient::ClientSecrets.new(
-          {
-            'web' => {
-              'access_token' => access_token,
-              'refresh_token' => user.refresh_token,
-              'client_id' => ENV['GOOGLE_CLIENT_ID'],
-              'client_secret' => ENV['GOOGLE_CLIENT_SECRET'],
-              'expires_in' => Time.now + 1_000_000,
-              'grant_type' => 'authorization_code',
-              'redirect_url' => "https://cuecast.herokuapp.com/"
-            }
-          }
-        )
+	Google::APIClient::ClientSecrets.new(
+	  {
+	    "web" => {
+	      "access_token" => access_token,
+	      "refresh_token" => user.refresh_token,
+	      "client_id" => ENV["GOOGLE_CLIENT_ID"],
+	      "client_secret" => ENV["GOOGLE_CLIENT_SECRET"],
+	      "expires_in": 1.week.from_now,
+	      "project_id": "cuecast-265723",
+	      "redirect_uris": [
+		"http://localhost:4000/omniauth/google_oauth2/callback",
+		"https://cuecast-api.herokuapp.com/omniauth/google_oauth2/callback",
+		"https://www.cuecast.io/omniauth/google_oauth2/callback"],
+		"javascript_origins": [
+		  "http://localhost:4000", 
+		  "https://cuecast.herokuapp.com"
+		],
+	    },
+	  }
+      )
 
-      yt = Google::Apis::YoutubeV3
+
+      auth.expires_in =       yt = Google::Apis::YoutubeV3
       @service = yt::YouTubeService.new
       @service.authorization = auth.to_authorization
       @refresh = refresh
