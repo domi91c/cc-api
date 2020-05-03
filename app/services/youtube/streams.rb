@@ -15,8 +15,9 @@ module Youtube
               'access_token' => access_token,
               'refresh_token' => user.refresh_token,
               'client_id' => ENV['GOOGLE_CLIENT_ID'],
-              'client_secret' => ENV['GOOGLE_CLIENT_SECRET']
-            }
+              'client_secret' => ENV['GOOGLE_CLIENT_SECRET'],
+	      'authorization_uri' => 'https://accounts.google.com/o/oauth2/auth?access_type=online&prompt=consent',
+            },
           }
         )
 
