@@ -19,8 +19,8 @@ module Youtube
 	      "expires_in": 1.week.from_now,
 	      "project_id": "cuecast-265723",
 	      "redirect_uris": [
-		"http://localhost:4000/omniauth/google_oauth2/callback",
 		"https://cuecast-api.herokuapp.com/omniauth/google_oauth2/callback",
+		"http://localhost:4000/omniauth/google_oauth2/callback",
 		"https://www.cuecast.io/omniauth/google_oauth2/callback"],
 		"javascript_origins": [
 		  "http://localhost:4000", 
