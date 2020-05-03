@@ -1,9 +1,5 @@
-require "psych"
-# @!parse Bundler.require
-
-
 Rails.application.routes.draw do
-  default_url_options :host => "localhost:4000"
+  default_url_options :host => "cuecast.io"
   mount_devise_token_auth_for 'User',
     at: 'api/auth',
     controllers: {
@@ -11,6 +7,7 @@ Rails.application.routes.draw do
         'overrides/omniauth_callbacks'
     }
   mount ActionCable.server => '/cable'
+
   scope :api do
     resources :streams do
       resources :requests, module: :streams
