@@ -8,6 +8,10 @@ module Youtube
 
     def initialize(access_token:, user:, refresh: false)
       @user = user
+      p '==============================================='
+      p "Access: #{access_token}" 
+      p "Refresh: #{user.refresh_token}"
+      p '==============================================='
       auth =
 	Google::APIClient::ClientSecrets.new(
 	  {
