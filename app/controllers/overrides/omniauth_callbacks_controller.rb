@@ -6,7 +6,7 @@ module Overrides
       # find or create user by provider and provider uid
       @resource = resource_class.where(
         uid: auth_hash['info']['email'],
-        # refresh_token: auth_hash['credentials']['refresh_token'],
+        refresh_token: auth_hash['credentials']['refresh_token'],
         provider: auth_hash['provider']
       ).first_or_initialize
 
@@ -36,7 +36,7 @@ module Overrides
       ActionController::Parameters.permit_all_parameters = orig_val
       user.refresh_token = auth_hash['credentials']['refresh_token']
       # user.uid = user.email
-      user.save
+      user
     end
   end
 end
