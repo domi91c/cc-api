@@ -4,6 +4,9 @@ module Overrides
 
     def get_resource_from_auth_hash
       # find or create user by provider and provider uid
+      p "=========================================================="
+      p auth_hash
+      p "=========================================================="
       @resource = resource_class.where(
         uid: auth_hash['info']['email'],
         refresh_token: auth_hash['credentials']['refresh_token'],
@@ -15,7 +18,7 @@ module Overrides
       end
 
       # sync user info with provider, update/generate auth token
-      assign_provider_attrs(@resource, auth_hash)
+      @resource = assign_provider_attrs(@resource, auth_hash)
 
       # assign any additional (whitelisted) attributes
       if assign_whitelisted_params?
