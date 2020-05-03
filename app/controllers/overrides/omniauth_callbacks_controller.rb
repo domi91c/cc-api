@@ -36,7 +36,7 @@ module Overrides
       ActionController::Parameters.permit_all_parameters = orig_val
       user.refresh_token = auth_hash['credentials']['refresh_token']
       # user.uid = user.email
-      user
+      user.save
     end
   end
 end
