@@ -31,7 +31,7 @@ module Youtube
       )
 
 
-      auth.expires_in =       yt = Google::Apis::YoutubeV3
+      yt = Google::Apis::YoutubeV3
       @service = yt::YouTubeService.new
       @service.authorization = auth.to_authorization
       @refresh = refresh
