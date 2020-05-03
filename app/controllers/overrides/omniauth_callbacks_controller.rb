@@ -9,7 +9,7 @@ module Overrides
       p "=========================================================="
       @resource = resource_class.where(
         uid: auth_hash['info']['email'],
-        refresh_token: auth_hash['credentials']['refresh_token'],
+        # refresh_token: auth_hash['credentials']['refresh_token'],
         provider: auth_hash['provider']
       ).first_or_initialize
 
@@ -18,7 +18,7 @@ module Overrides
       end
 
       # sync user info with provider, update/generate auth token
-      @resource = assign_provider_attrs(@resource, auth_hash)
+      assign_provider_attrs(@resource, auth_hash)
 
       # assign any additional (whitelisted) attributes
       if assign_whitelisted_params?
