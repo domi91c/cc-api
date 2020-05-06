@@ -111,4 +111,12 @@ Rails.application.configure do
   config.web_socket_server_url = "wss://cuecast-api.herokuapp.com/cable" 
   config.action_cable.allowed_request_origins = ['https://cuecast-api.herokuapp.com', 'http://cuecast-api.herokuapp.com']
 
+  config.action_cable.url = 'wss://cuecast-api.herokuapp.com/cable'
+  config.action_cable.disable_request_forgery_protection = true
+  config.action_cable.allowed_request_origins = [
+    "https://cuecast.herokuapp.com/",
+    "https://cuecast-api.herokuapp.com",
+    "http://cuecast-api.herokuapp.com",
+  ]
+
 end
