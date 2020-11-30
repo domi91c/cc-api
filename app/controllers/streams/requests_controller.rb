@@ -17,7 +17,7 @@ module Streams
         )
         render json: @stream
       else
-        render json: @stream
+        render json: { error: "Failed to create request for guest." }
       end
     end
 
@@ -48,7 +48,7 @@ module Streams
         )
         render json: @stream
       else
-        render json: @stream
+        render json: { error: "Failed to cancel request for guest." }
       end
     end
 

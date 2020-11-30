@@ -63,4 +63,6 @@ Rails.application.configure do
   config.middleware.insert_after ActiveRecord::Migration::CheckPending, ActionDispatch::Cookies
   config.middleware.insert_after ActionDispatch::Cookies, ActionDispatch::Session::CookieStore
 
+  # config.hosts << "fakedomain.com"
+  # config.hosts << "dominic-2.local"
 end

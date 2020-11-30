@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.7.2'
 
 gem 'solargraph', group: :development
 gem 'rubocop', group: :development
@@ -61,6 +61,4 @@ gem 'google-api-client'
 gem 'devise_token_auth'
 
 # gem 'aasm'
-
-
 gem 'colorize'

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  default_url_options :host => "cuecast-api.herokuapp.com"
+  default_url_options :host => "localhost:4000"
   mount_devise_token_auth_for 'User',
     at: 'api/auth',
     controllers: {
