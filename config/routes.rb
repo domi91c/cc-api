@@ -9,9 +9,11 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   scope :api do
+    mount Cypress::Engine => 'cypress', as: 'cypress'
     resources :streams do
       resources :requests, module: :streams
     end
+
     resources :calls
 
     resources :casts do

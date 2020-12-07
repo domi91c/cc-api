@@ -5,7 +5,7 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  
+
   config.cache_classes = false
 
   # Do not eager load code on boot. This avoids loading your whole application
@@ -48,4 +48,15 @@ Rails.application.configure do
 
   config.middleware.use ActionDispatch::Cookies
   config.middleware.use ActionDispatch::Session::CookieStore
+
+  # config.cypress_engine.mounted_path = "/cypress"
+end
+
+if Rails.env.test?
+  Rails.application.config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins '*'
+      resource '/cypress/*', headers: :any, methods: %i(post)
+    end
+  end
 end

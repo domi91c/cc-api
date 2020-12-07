@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe "authentication", type: :request do
+describe "local authentication", type: :request do
 
-  describe "user can sign up", type: :request do
+  describe "user can sign up with email and password", type: :request do
     it 'returns status code 200' do
       post user_registration_path, params: {email: "dominic.n@me.com", password: "foobar123"}
       response_body = JSON.parse(response.body)
@@ -12,9 +12,9 @@ describe "authentication", type: :request do
     end
   end
 
-  describe 'user can sign in' do
+  describe 'user can sign in with email and password' do
     it 'returns status code 200' do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, confirmed_at: Date.today)
       post user_session_path, params: {email: user.email, password: user.password}
       response_body = JSON.parse(response.body)
 

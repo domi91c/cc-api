@@ -62,3 +62,5 @@ gem 'devise_token_auth'
 
 # gem 'aasm'
 gem 'colorize'
+
+gem 'cypress', path: './cypress'

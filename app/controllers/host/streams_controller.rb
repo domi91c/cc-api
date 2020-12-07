@@ -8,9 +8,11 @@ module Host
     end
 
     def show
+      return render json: { error: "Stream not found.", status: 500 } unless @stream
+
       render json: @stream,
-             serializer: Host::StreamSerializer,
-             include: %w[casts requests requests.guest]
+        serializer: Host::StreamSerializer,
+        include: %w[casts requests requests.guest]
     end
 
     def create
